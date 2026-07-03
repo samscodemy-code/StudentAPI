@@ -1,4 +1,4 @@
-name: Node CI
+name: Node CI Pipeline (Debug + Learning)
 
 on:
   push:
@@ -10,17 +10,41 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+      # 1. Checkout code from GitHub
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      # 2. Show where we are running
+      - name: Print Working Directory
+        run: pwd
+
+      # 3. List all project files
+      - name: List Files
+        run: ls -la
+
+      # 4. Show system details (Linux VM info)
+      - name: System Info
+        run: uname -a
+
+      # 5. Setup Node.js
       - name: Setup Node
         uses: actions/setup-node@v4
-
         with:
           node-version: 22
 
+      # 6. Check Node version
+      - name: Verify Node Version
+        run: node -v
+
+      # 7. Check npm version
+      - name: Verify NPM Version
+        run: npm -v
+
+      # 8. Install dependencies
       - name: Install Packages
         run: npm install
 
+      # 9. Run application (safe version)
       - name: Run Application
-        run: npm start
+        run: node app.js
